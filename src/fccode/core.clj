@@ -6,20 +6,28 @@
   [& args]
   (println (first args) (second args)))
 
-(defn prime?
-  [x known-primes]
-  (every? #(not= 0 (mod x %)) known-primes))
+;; This method generates
+;; 20 primes in 0.034276 msecs
+;; 50 primes in 0.102123 msecs
+;; 500 primes in 0.166851 msecs
+;; 5000 primes in 0.881978 msecs but instead
+;; of printing, generates a
+;; StackOverflowError   clojure.lang.ASeq.more (ASeq.java:131)
+;; 2000 primes in 0.112861 msecs
+;; 2000 primes in 0.247917 msecs
+;; 2000 primes in 0.056514 msecs
+;; Time isn't consistent with the same inputs,
+;; perhaps there is an underlying system storing
+;; the output in memory
 
-;; The problem with this approach is it requires choosing
-;; a range of numbers within to search for primes.
-;; A lazy sequence is needed to be able to query for a given
-;; number of primes.
-;; This function needs to be refactored to convert it into
-;; a lazy sequence.
 
-(defn find-primes
+(defn filter-primes
+  [nums]
+  (cons (first nums)
+        (lazy-seq (filter-primes (filter #(not= 0 (mod % (first nums)))
+                                       (rest nums))))))
+
+(defn generate-primes
   [n]
-  (reduce
-    #(if (prime? %2 %1) (conj %1 %2) (identity %1))
-    #{2}
-    (drop 3 (take n (range)))))
+  (take n (filter-primes (iterate inc 2))))
+
