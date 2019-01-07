@@ -1,10 +1,13 @@
 (ns fccode.core
   (:gen-class))
 
-(defn -main
-  "I don't do a whole lot ... yet."
-  [& args]
-  (println (first args) (second args)))
+(defn filter-primes
+  "A lazy sequence that returns only the prime numbers from
+  a sequence containing integers greater than 1"
+  [nums]
+  (cons (first nums)
+        (lazy-seq (filter-primes (filter #(not= 0 (mod % (first nums)))
+                                         (rest nums))))))
 
 ;; This method generates
 ;; 20 primes in 0.034276 msecs
@@ -20,15 +23,20 @@
 ;; perhaps there is an underlying system storing
 ;; the output in memory
 
-
-(defn filter-primes
-  [nums]
-  (cons (first nums)
-        (lazy-seq (filter-primes (filter #(not= 0 (mod % (first nums)))
-                                       (rest nums))))))
-
 (defn generate-primes
   "Return a list of n prime numbers"
   [n]
   (cons 1 (take (- n 1) (filter-primes (iterate inc 2)))))
 
+(defn create-product-table
+  "Given a list of nums, create a scalar multiple of the list for each num in the list"
+  [nums]
+  (map
+    (fn [y] (map (fn [x] (* x y)) nums))
+    nums))
+
+(defn -main
+  "Print a multiplication table of n primes where n is the first argument"
+  [& args]
+  (doseq [row (create-product-table (generate-primes (Integer. (first args))))]
+    (println (clojure.string/join " " row))))
