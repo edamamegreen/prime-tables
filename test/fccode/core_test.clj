@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [fccode.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest test-generate-primes
+  (testing "Generate primes"
+    (is (= '(1) (generate-primes 1)))
+    (is (= '(1 2 3 5) (generate-primes 4)))))
