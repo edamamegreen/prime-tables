@@ -28,6 +28,7 @@
                                        (rest nums))))))
 
 (defn generate-primes
+  "Return a list of n prime numbers"
   [n]
-  (take n (filter-primes (iterate inc 2))))
+  (cons 1 (take (- n 1) (filter-primes (iterate inc 2)))))
 
