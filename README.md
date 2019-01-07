@@ -5,7 +5,7 @@ Built in Clojure.
 
 ## Installation
 
-Clone this repo or download the fccode-0.1.0-standalone.jar.
+Clone this repo or download target/uberjar/fccode-0.1.0-standalone.jar.
 
 ## Usage
 
