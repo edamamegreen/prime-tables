@@ -26,7 +26,8 @@
 (defn generate-primes
   "Return a list of n prime numbers"
   [n]
-  (cons 1 (take (- n 1) (filter-primes (iterate inc 2)))))
+  (if (> n 0)
+    (cons 1 (take (- n 1) (filter-primes (iterate inc 2))))))
 
 (defn create-product-table
   "Given a list of nums, create a scalar multiple of the list for each num in the list"
