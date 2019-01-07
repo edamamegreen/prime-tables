@@ -1,4 +1,4 @@
-# fccode
+# Prime Tables
 
 A CLI that creates multiplication tables of n primes. Handy for party tricks.
 Built in Clojure.
