@@ -1,4 +1,5 @@
 /target
+!fccode-0.1.0-SNAPSHOT-standalone.jar
 /classes
 /checkouts
 profiles.clj
