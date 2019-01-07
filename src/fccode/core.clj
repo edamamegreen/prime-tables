@@ -38,6 +38,6 @@
 
 (defn -main
   "Print a multiplication table of n primes where n is the first argument"
-  [& args]
-  (doseq [row (create-product-table (generate-primes (Integer. (first args))))]
-    (println (clojure.string/join " " row))))
+  ([] (-main 10))
+  ([& args] (doseq [row (create-product-table (generate-primes (Integer. (first args))))]
+              (println (clojure.string/join " " row)))))
